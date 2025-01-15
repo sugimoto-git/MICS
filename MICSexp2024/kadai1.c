@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define BUCKET_SIZE 1000  // ハッシュ表のサイズ
-#define MIN_SUPPORT 2     // 最小支持度を低く設定
+#define MIN_SUPPORT 50     // 最小支持度を低く設定
 
 // アイテムを保持する構造体の定義
 struct cell {

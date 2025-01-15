@@ -93,15 +93,80 @@ void freeHashTab() {
     }
 }
 
+// パス1の結果を保持する構造体の定義
+struct cell {
+    int item;
+    int count;
+    struct cell *next;
+};
+
+static struct cell *L1[BUCKET_SIZE];  // パス1の結果を保持するハッシュ表
+
+// パス1の結果を初期化
+void initL1() {
+    for (int i = 0; i < BUCKET_SIZE; i++) {
+        L1[i] = NULL;
+    }
+}
+
+// パス1の結果を挿入
+void insertL1(int key, int count) {
+    struct cell *p = (struct cell *)malloc(sizeof(struct cell));
+    p->item = key;
+    p->count = count;
+    int h = hash(key, 0);  // ハッシュ関数を再利用
+    p->next = L1[h];
+    L1[h] = p;
+}
+
+// パス1の結果を読み込む
+void loadL1() {
+    FILE *fp = fopen("path1_result.dat", "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: cannot open path1_result.dat\n");
+        exit(1);
+    }
+    int item, count;
+    while (fscanf(fp, "%d %d", &item, &count) != EOF) {
+        insertL1(item, count);
+    }
+    fclose(fp);
+}
+
+// パス1の結果からC2を作成
+void createC2() {
+    for (int i = 0; i < BUCKET_SIZE; i++) {
+        struct cell *p1 = L1[i];
+        while (p1 != NULL) {
+            for (int j = i; j < BUCKET_SIZE; j++) {
+                struct cell *p2 = L1[j];
+                while (p2 != NULL) {
+                    if (p1 != p2) {
+                        insertOrUpdateHashTab(p1->item, p2->item);
+                    }
+                    p2 = p2->next;
+                }
+            }
+            p1 = p1->next;
+        }
+    }
+}
+
 // メイン関数
 int main() {
+    // パス1の結果を読み込む
+    loadL1();
+
+    // C2を初期化
+    initHashTab();
+    createC2();
+
+    // トランザクションデータを読み込み、C2の頻度をカウント
     FILE *fp = fopen("sampleTran.dat", "r");
     if (fp == NULL) {
         fprintf(stderr, "Error: cannot open file\n");
         return 1;
     }
-
-    initHashTab();
 
     int transaction_count = 0;
     int item;
