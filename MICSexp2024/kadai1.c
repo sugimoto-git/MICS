@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 #define BUCKET_SIZE 1000  // ハッシュ表のサイズ
-#define MIN_SUPPORT 50     // 最小支持度を低く設定
+
+double MIN_SUPPORT_RATIO;  // 最小支持度を割合で指定
 
 // アイテムを保持する構造体の定義
 struct cell {
@@ -65,17 +66,38 @@ void insertOrUpdateHashTab(int key) {
 }
 
 // ハッシュ表に保持されたアイテムを出力
-void scanHashTab(int min_support) {
+void scanHashTab(int transaction_count, double min_support_ratio) {
     printf("Frequent items:\n");
     for (int i = 0; i < BUCKET_SIZE; i++) {
         struct cell *p = htab[i];
         while (p != NULL) {
-            if (p->count >= min_support) {
-                printf("Item: %d, Count: %d\n", p->item, p->count);
+            double support = (double)p->count / transaction_count;
+            if (support >= min_support_ratio) {
+                printf("Item: %d, Count: %d, Support: %.2f%%\n", p->item, p->count, support * 100);
             }
             p = p->next;
         }
     }
+}
+
+// パス1の結果をファイルに保存
+void saveL1(int transaction_count, double min_support_ratio) {
+    FILE *fp = fopen("path1_result.dat", "w");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: cannot open file path1_result.dat\n");
+        exit(1);
+    }
+    for (int i = 0; i < BUCKET_SIZE; i++) {
+        struct cell *p = htab[i];
+        while (p != NULL) {
+            double support = (double)p->count / transaction_count;
+            if (support >= min_support_ratio) {
+                fprintf(fp, "%d %d %.2f\n", p->item, p->count, support * 100);
+            }
+            p = p->next;
+        }
+    }
+    fclose(fp);
 }
 
 // ハッシュ表の領域を解放
@@ -92,10 +114,12 @@ void freeHashTab() {
 
 // メイン関数
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <transaction file>\n", argv[0]);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <transaction file> <min support ratio>\n", argv[0]);
         return 1;
     }
+
+    MIN_SUPPORT_RATIO = atof(argv[2]);  // 最小支持度を標準入力から取得
 
     FILE *fp = fopen(argv[1], "r");
     if (fp == NULL) {
@@ -118,7 +142,8 @@ int main(int argc, char **argv) {
     fclose(fp);
 
     printf("Total transactions: %d\n", transaction_count);
-    scanHashTab(MIN_SUPPORT);
+    scanHashTab(transaction_count, MIN_SUPPORT_RATIO);
+    saveL1(transaction_count, MIN_SUPPORT_RATIO);
     freeHashTab();
 
     return 0;
