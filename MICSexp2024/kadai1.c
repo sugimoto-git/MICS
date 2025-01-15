@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUCKET_SIZE 100  // ハッシュ表のサイズ
-#define MIN_SUPPORT 2    // 最小支持度
+#define BUCKET_SIZE 1000  // ハッシュ表のサイズ
+#define MIN_SUPPORT 2     // 最小支持度を低く設定
 
 // アイテムを保持する構造体の定義
 struct cell {
@@ -91,24 +91,29 @@ void freeHashTab() {
 }
 
 // メイン関数
-int main() {
-    FILE *fp = fopen("sampleTran.dat", "r");
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <transaction file>\n", argv[0]);
+        return 1;
+    }
+
+    FILE *fp = fopen(argv[1], "r");
     if (fp == NULL) {
-        fprintf(stderr, "Error: cannot open file\n");
+        fprintf(stderr, "Error: cannot open file %s\n", argv[1]);
         return 1;
     }
 
     initHashTab();
 
     int transaction_count = 0;
-    int item;
-    while (fscanf(fp, "%d", &item) != EOF) {
-        if (item == -1) break;
-        if (item > 0) {
+    int tlen, item;
+    while (fscanf(fp, "%d", &tlen) != EOF) {
+        if (tlen == -1) break;
+        for (int i = 0; i < tlen; i++) {
+            fscanf(fp, "%d", &item);
             insertOrUpdateHashTab(item);
-        } else {
-            transaction_count++;
         }
+        transaction_count++;
     }
     fclose(fp);
 
