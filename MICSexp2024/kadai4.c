@@ -1,9 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>   // clock() / clock_t で時間計測
 
 #define BUCKET_SIZE 200000   // ハッシュテーブルサイズ(大規模なら適宜変更)
 #define MAX_ITEMS_IN_TRANSACTION 20000
+
+// ------------------------------
+// 性能評価用のグローバル変数
+// ------------------------------
+static long long searchItem_calls = 0;       // searchItem呼び出し回数
+static long long searchItem_traversals = 0;  // searchItem内でチェーンを辿った回数
+
+static long long searchPair_calls = 0;
+static long long searchPair_traversals = 0;
+
+static long long searchTriple_calls = 0;
+static long long searchTriple_traversals = 0;
+
+static long long generated_rules = 0;  // 出力されたルールの数
+
+// 時間計測 (各パスの所要時間) 用
+static double pass1_time = 0.0;
+static double pass2_time = 0.0;
+static double pass3_time = 0.0;
+static double rule_time  = 0.0;
+
+// C言語では clock() を使う場合、1秒あたりのクロック数はCLOCKS_PER_SEC
+// CPU時間計測の簡易版として利用 (実時間が欲しければ gettimeofday等を使用)
 
 static double MIN_SUPPORT_RATIO = 0.0;
 static double MIN_CONFIDENCE = 0.0;
@@ -31,9 +55,14 @@ int hashItem(int item) {
     return (int)idx;
 }
 struct itemNode* searchItem(int item) {
+    // インストルメンテーション: 回数カウント
+    searchItem_calls++;
+
     int h = hashItem(item);
     struct itemNode *p = itemHash[h];
     while (p) {
+        // チェーンを1要素辿るたびにインクリメント
+        searchItem_traversals++;
         if (p->item == item) return p;
         p = p->next;
     }
@@ -90,17 +119,20 @@ void initPairHash() {
     }
 }
 int hashPair(int a, int b) {
-    // a <= b 前提
+    if (a>b) {int t=a; a=b; b=t;}
     long long key = (long long)a*31LL + (long long)b;
     long long idx = key % BUCKET_SIZE;
     if (idx<0) idx+=BUCKET_SIZE;
     return (int)idx;
 }
 struct pairNode* searchPair(int a, int b) {
+    searchPair_calls++;
+
     if (a>b) {int t=a; a=b; b=t;}
     int h = hashPair(a,b);
     struct pairNode *p = pairHash[h];
     while (p) {
+        searchPair_traversals++;
         if (p->item1==a && p->item2==b) return p;
         p = p->next;
     }
@@ -112,8 +144,7 @@ struct pairNode* createPairNode(int a, int b) {
         fprintf(stderr, "Error: malloc failed\n");
         exit(1);
     }
-    // a<b
-    if (a>b) {int t=a; a=b; b=t;}
+    if (a>b) {int t=a;a=b;b=t;}
     node->item1 = a;
     node->item2 = b;
     node->count = 0;
@@ -121,7 +152,6 @@ struct pairNode* createPairNode(int a, int b) {
     return node;
 }
 void insertPairCandidate(int a, int b) {
-    if (a>b) {int t=a; a=b; b=t;}
     struct pairNode *found = searchPair(a,b);
     if (!found) {
         int h = hashPair(a,b);
@@ -177,12 +207,15 @@ int hashTriple(int a, int b, int c) {
     return (int)idx;
 }
 struct tripleNode* searchTriple(int a, int b, int c) {
+    searchTriple_calls++;
+
     if (a>b){int t=a;a=b;b=t;}
     if (b>c){int t=b;b=c;c=t;}
     if (a>b){int t=a;a=b;b=t;}
     int h = hashTriple(a,b,c);
     struct tripleNode *p = tripleHash[h];
     while(p) {
+        searchTriple_traversals++;
         if (p->item1==a && p->item2==b && p->item3==c) {
             return p;
         }
@@ -196,7 +229,6 @@ struct tripleNode* createTripleNode(int a, int b, int c) {
         fprintf(stderr, "Error: malloc failed\n");
         exit(1);
     }
-    // a<b<c
     if (a>b){int t=a;a=b;b=t;}
     if (b>c){int t=b;b=c;c=t;}
     if (a>b){int t=a;a=b;b=t;}
@@ -208,7 +240,7 @@ struct tripleNode* createTripleNode(int a, int b, int c) {
     return node;
 }
 void insertTripleCandidate(int a, int b, int c) {
-    // 既に存在しないかチェック
+    // 既に存在しないか
     if (!searchTriple(a,b,c)) {
         int h = hashTriple(a,b,c);
         struct tripleNode *n = createTripleNode(a,b,c);
@@ -256,10 +288,12 @@ long long countTransactions(const char *filename) {
     return total;
 }
 
-// --------------------------------------------------
-// Pass1: L1.dat 出力
-// --------------------------------------------------
+// ---------------------------
+// pass1_generateL1
+// ---------------------------
 long long pass1_generateL1(const char *transaction_file, const char *l1_file) {
+    clock_t start = clock();
+
     initItemHash();
 
     FILE *fp = fopen(transaction_file,"r");
@@ -303,15 +337,18 @@ long long pass1_generateL1(const char *transaction_file, const char *l1_file) {
     }
     fclose(fout);
 
+    clock_t end = clock();
+    pass1_time += (double)(end - start) / CLOCKS_PER_SEC;
+
     return transCount;  
 }
 
-// --------------------------------------------------
-// Pass2: L2.dat 出力
-//   - L1.dat 読み込み → C2
-//   - トランザクション再スキャン → 頻度カウント
-// --------------------------------------------------
+// ---------------------------
+// pass2_generateL2
+// ---------------------------
 long long pass2_generateL2(const char *transaction_file, const char *l1_file, long long total_t) {
+    clock_t start = clock();
+
     initPairHash();
 
     // A) L1.dat の読み込み
@@ -397,17 +434,15 @@ long long pass2_generateL2(const char *transaction_file, const char *l1_file, lo
     }
     fclose(fout);
 
+    clock_t end = clock();
+    pass2_time += (double)(end - start) / CLOCKS_PER_SEC;
+
     return found_pairs;
 }
 
-// --------------------------------------------------
-// Pass3: L3.dat 出力
-//   - L2.dat 読み込み → C3生成 (Apriori結合)
-//   - トランザクション再スキャン → 頻度カウント
-//   - L3.dat に出力
-// --------------------------------------------------
-
-// L2を読み込むための一時構造
+// ---------------------------
+// pass3_generateL3
+// ---------------------------
 struct pairInfo {
     int a;
     int b;
@@ -465,6 +500,8 @@ void freePairCheckHash(){
 }
 
 long long pass3_generateL3(const char *transaction_file, long long total_t) {
+    clock_t start = clock();
+
     initTripleHash();
 
     // A) L2.dat 読み込み → pair配列 と pairCheckハッシュ
@@ -487,9 +524,7 @@ long long pass3_generateL3(const char *transaction_file, long long total_t) {
         double sup;
         int r=fscanf(fp,"%d %d %lld %lf",&a,&b,&c,&sup);
         if(r==4){
-            // pairCheckに登録
             insertPairCheck(a,b);
-            // 配列にも
             if(pair_count>=capacity){
                 capacity*=2;
                 struct pairInfo *tmp=(struct pairInfo*)realloc(pairs,sizeof(struct pairInfo)*capacity);
@@ -511,8 +546,6 @@ long long pass3_generateL3(const char *transaction_file, long long total_t) {
     fclose(fp);
 
     // B) C3生成
-    //   (a1,a2) と (a1,a3) -> (a1,a2,a3)
-    //   さらに (a2,a3) も L2 にあるか確認
     for(int i=0;i<pair_count;i++){
         int a1=pairs[i].a;
         int a2=pairs[i].b;
@@ -521,14 +554,12 @@ long long pass3_generateL3(const char *transaction_file, long long total_t) {
             int b2=pairs[j].b;
             // 結合条件: a1==b1 => (a1,a2,b2)
             if(a1==b1){
-                // subset check: (a2,b2) in L2 ?
                 if(a2!=b2 && isFrequentPairCheck(a2,b2)){
                     insertTripleCandidate(a1,a2,b2);
                 }
             }
         }
     }
-
     free(pairs);
 
     // C) トランザクション再スキャン → triple count
@@ -552,7 +583,6 @@ long long pass3_generateL3(const char *transaction_file, long long total_t) {
             items[ac++]=atoi(ptr);
             if(ac>=MAX_ITEMS_IN_TRANSACTION) break;
         }
-        // 3アイテム全列挙
         for(int i=0;i<ac;i++){
             for(int j=i+1;j<ac;j++){
                 for(int k=j+1;k<ac;k++){
@@ -585,13 +615,15 @@ long long pass3_generateL3(const char *transaction_file, long long total_t) {
     fclose(fout);
 
     freePairCheckHash();
+
+    clock_t end = clock();
+    pass3_time += (double)(end - start) / CLOCKS_PER_SEC;
+
     return found_triples;
 }
 
 // --------------------------------------------------
 // 相関ルール抽出
-//   - L1.dat, L2.dat, L3.dat を再度読み込み
-//   - confidence >= minconf を満たすルールを出力
 // --------------------------------------------------
 
 // ハッシュ: L1
@@ -621,6 +653,7 @@ void insertItemCount(int item, long long c){
     itemCountHash[h]=n;
 }
 long long getItemCount(int item){
+    // → ここでは searchItemを使わない (別の構造) 
     int h=hashItemCount(item);
     struct itemCountNode *p=itemCountHash[h];
     while(p){
@@ -670,7 +703,6 @@ void insertPairCountVal(int a,int b,long long c){
     pairCountHash[h]=n;
 }
 long long getPairCountVal(int a,int b){
-    if(a>b){int t=a;a=b;b=t;}
     int h=hashPairCount(a,b);
     struct pairCountNode *p=pairCountHash[h];
     while(p){
@@ -716,7 +748,6 @@ int hashTripleCount(int a,int b,int c){
     return (int)idx;
 }
 void insertTripleCountVal(int a,int b,int c,long long cnt){
-    // a<b<c
     if(a>b){int t=a;a=b;b=t;}
     if(b>c){int t=b;b=c;c=t;}
     if(a>b){int t=a;a=b;b=t;}
@@ -750,9 +781,7 @@ void freeTripleCountHash(){
     }
 }
 
-// --------------------------------------------------
-// L1.dat, L2.dat, L3.dat の読み込み
-// --------------------------------------------------
+// L1.dat, L2.dat, L3.dat 読み込み
 void loadL1(const char *filename){
     initItemCountHash();
     FILE *fp=fopen(filename,"r");
@@ -814,18 +843,8 @@ void loadL3(const char *filename){
     fclose(fp);
 }
 
-// --------------------------------------------------
-// 相関ルール抽出
-//   1) L1からのルール: {X} => {Y} ... (実質ペアのルール)
-//   2) L2からのルール: {a} => {b}, {b} => {a}  (ペアを分割)
-//   3) L3からのルール: 
-//      - {a} => {b,c}, {b} => {a,c}, {c} => {a,b}
-//      - {a,b} => {c}, {a,c} => {b}, {b,c} => {a}
-// --------------------------------------------------
-
-// 1要素->1要素 (実質ペア)
+// ルール抽出
 void rulesFromL2() {
-    // pairCountHash 全走査
     for(int i=0;i<BUCKET_SIZE;i++){
         struct pairCountNode *p=pairCountHash[i];
         while(p){
@@ -839,6 +858,7 @@ void rulesFromL2() {
                 if(conf>=MIN_CONFIDENCE){
                     double sup=(double)pair_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d} => {%d}, support=%.4f, confidence=%.4f\n",a,b,sup,conf);
+                    generated_rules++;
                 }
             }
             // {b} => {a}
@@ -848,16 +868,14 @@ void rulesFromL2() {
                 if(conf>=MIN_CONFIDENCE){
                     double sup=(double)pair_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d} => {%d}, support=%.4f, confidence=%.4f\n",b,a,sup,conf);
+                    generated_rules++;
                 }
             }
             p=p->next;
         }
     }
 }
-
-// 1要素->2要素, 2要素->1要素
 void rulesFromL3() {
-    // tripleCountHash 全走査
     for(int i=0;i<BUCKET_SIZE;i++){
         struct tripleCountNode *p=tripleCountHash[i];
         while(p){
@@ -866,7 +884,7 @@ void rulesFromL3() {
             int c=p->c;
             long long triple_cnt=p->count;
 
-            // (1) {a} => {b,c}
+            // {a} => {b,c}
             long long a_cnt=getItemCount(a);
             if(a_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)a_cnt;
@@ -874,9 +892,10 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d} => {%d, %d}, support=%.4f, confidence=%.4f\n",
                         a,b,c, sup, conf);
+                    generated_rules++;
                 }
             }
-            // (2) {b} => {a,c}
+            // {b} => {a,c}
             long long b_cnt=getItemCount(b);
             if(b_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)b_cnt;
@@ -884,9 +903,10 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d} => {%d, %d}, support=%.4f, confidence=%.4f\n",
                         b,a,c, sup, conf);
+                    generated_rules++;
                 }
             }
-            // (3) {c} => {a,b}
+            // {c} => {a,b}
             long long c_cnt=getItemCount(c);
             if(c_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)c_cnt;
@@ -894,9 +914,10 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d} => {%d, %d}, support=%.4f, confidence=%.4f\n",
                         c,a,b, sup, conf);
+                    generated_rules++;
                 }
             }
-            // (4) {a,b} => {c}
+            // {a,b} => {c}
             long long ab_cnt=getPairCountVal(a,b);
             if(ab_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)ab_cnt;
@@ -904,9 +925,10 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d, %d} => {%d}, support=%.4f, confidence=%.4f\n",
                         a,b,c, sup, conf);
+                    generated_rules++;
                 }
             }
-            // (5) {a,c} => {b}
+            // {a,c} => {b}
             long long ac_cnt=getPairCountVal(a,c);
             if(ac_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)ac_cnt;
@@ -914,9 +936,10 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d, %d} => {%d}, support=%.4f, confidence=%.4f\n",
                         a,c,b, sup, conf);
+                    generated_rules++;
                 }
             }
-            // (6) {b,c} => {a}
+            // {b,c} => {a}
             long long bc_cnt=getPairCountVal(b,c);
             if(bc_cnt>0 && triple_cnt>0){
                 double conf=(double)triple_cnt/(double)bc_cnt;
@@ -924,6 +947,7 @@ void rulesFromL3() {
                     double sup=(double)triple_cnt/(double)TOTAL_TRANSACTIONS;
                     printf("{%d, %d} => {%d}, support=%.4f, confidence=%.4f\n",
                         b,c,a, sup, conf);
+                    generated_rules++;
                 }
             }
 
@@ -932,9 +956,10 @@ void rulesFromL3() {
     }
 }
 
+
 // --------------------------------------------------
-// メイン
-//   ./kadai1234 <transaction_file> <minsup> <minconf>
+// メイン関数
+//   ./kadai4 <transaction_file> <minsup> <minconf>
 // --------------------------------------------------
 int main(int argc,char **argv){
     if(argc!=4){
@@ -945,48 +970,76 @@ int main(int argc,char **argv){
     MIN_SUPPORT_RATIO = atof(argv[2]);
     MIN_CONFIDENCE = atof(argv[3]);
 
-    // 1) トランザクション数を数える
+    // (1) トランザクション数を数える
+    clock_t t0 = clock();
     TOTAL_TRANSACTIONS = countTransactions(transaction_file);
+    clock_t t1 = clock();
+    double tx_count_time = (double)(t1 - t0)/CLOCKS_PER_SEC;
 
-    // 2) pass1 => L1.dat
+    // (2) pass1 => L1.dat
     long long total_t = pass1_generateL1(transaction_file, "L1.dat");
+    // (3) pass2 => L2.dat
+    long long l2_count = pass2_generateL2(transaction_file, "L1.dat", total_t);
+    // (4) pass3 => L3.dat
+    long long l3_count = pass3_generateL3(transaction_file, total_t);
+
+    // 表示
     printf("=== Pass1 -> L1.dat ===\n");
     printf("Total transactions: %lld\n", total_t);
+    printf("Pass1 time: %.3f sec\n", pass1_time);
 
-    // 3) pass2 => L2.dat
-    long long l2_count = pass2_generateL2(transaction_file, "L1.dat", total_t);
     printf("=== Pass2 -> L2.dat ===\n");
     printf("Found %lld frequent pairs\n", l2_count);
+    printf("Pass2 time: %.3f sec\n", pass2_time);
 
-    // 4) pass3 => L3.dat
-    long long l3_count = pass3_generateL3(transaction_file, total_t);
     printf("=== Pass3 -> L3.dat ===\n");
     printf("Found %lld frequent triples\n", l3_count);
+    printf("Pass3 time: %.3f sec\n", pass3_time);
 
     // メモリ解放(パス1,2,3)
     freeItemHash();
     freePairHash();
     freeTripleHash();
 
-    // 5) 相関ルール抽出
-    //    - L1.dat, L2.dat, L3.dat を読み込み
-    //    - confidence >= minconf のルールを出力
+    // (5) 相関ルール抽出
+    clock_t rule_start = clock();
     loadL1("L1.dat");
     loadL2("L2.dat");
     loadL3("L3.dat");
 
     printf("\n=== Association Rules (confidence >= %.2f) ===\n", MIN_CONFIDENCE);
 
-    // (a) L2から 1->1 ルール
     rulesFromL2();
-    // (b) L3から 1->2, 2->1 ルール
     rulesFromL3();
+
+    clock_t rule_end = clock();
+    rule_time = (double)(rule_end - rule_start)/CLOCKS_PER_SEC;
 
     // 解放
     freeItemCountHash();
     freePairCountHash();
     freeTripleCountHash();
 
-    printf("\nProgram finished (kadai1234: path1->path2->path3->association-rules)\n");
+    // まとめて出力
+    printf("\n=== Performance Summary ===\n");
+    printf("Transaction counting time: %.3f sec\n", tx_count_time);
+    printf("Pass1 time: %.3f sec\n", pass1_time);
+    printf("Pass2 time: %.3f sec\n", pass2_time);
+    printf("Pass3 time: %.3f sec\n", pass3_time);
+    printf("Rules generation time: %.3f sec\n", rule_time);
+
+    // ハッシュ探索回数などを表示
+    printf("\n=== Hash Search Stats ===\n");
+    printf("searchItem_calls       = %lld\n", searchItem_calls);
+    printf("searchItem_traversals  = %lld\n", searchItem_traversals);
+    printf("searchPair_calls       = %lld\n", searchPair_calls);
+    printf("searchPair_traversals  = %lld\n", searchPair_traversals);
+    printf("searchTriple_calls     = %lld\n", searchTriple_calls);
+    printf("searchTriple_traversals= %lld\n", searchTriple_traversals);
+
+    // ルール数
+    printf("\nTotal generated rules: %lld\n", generated_rules);
+
+    printf("\nProgram finished (kadai4: path1->path2->path3->association-rules)\n");
     return 0;
 }

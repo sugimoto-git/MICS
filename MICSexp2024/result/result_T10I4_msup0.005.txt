@@ -1,0 +1,423 @@
+=== Pass1 -> L1.dat ===
+Total transactions: 100000
+Pass1 time: 0.048 sec
+=== Pass2 -> L2.dat ===
+Found 342 frequent pairs
+Pass2 time: 0.532 sec
+=== Pass3 -> L3.dat ===
+Found 110 frequent triples
+Pass3 time: 0.382 sec
+
+=== Association Rules (confidence >= 0.60) ===
+{516} => {34}, support=0.0082, confidence=0.7067
+{705} => {40}, support=0.0111, confidence=0.6171
+{820} => {71}, support=0.0080, confidence=0.6348
+{482} => {144}, support=0.0056, confidence=0.6284
+{159} => {355}, support=0.0064, confidence=0.7285
+{159} => {584}, support=0.0064, confidence=0.7229
+{159} => {618}, support=0.0064, confidence=0.7206
+{720} => {158}, support=0.0052, confidence=0.7828
+{459} => {209}, support=0.0080, confidence=0.7082
+{516} => {218}, support=0.0084, confidence=0.7230
+{970} => {209}, support=0.0081, confidence=0.9494
+{516} => {284}, support=0.0083, confidence=0.7161
+{459} => {291}, support=0.0079, confidence=0.6993
+{970} => {291}, support=0.0080, confidence=0.9388
+{516} => {347}, support=0.0085, confidence=0.7281
+{843} => {351}, support=0.0060, confidence=0.7992
+{802} => {393}, support=0.0066, confidence=0.7952
+{843} => {412}, support=0.0060, confidence=0.8019
+{459} => {889}, support=0.0080, confidence=0.7082
+{459} => {970}, support=0.0079, confidence=0.7011
+{970} => {459}, support=0.0079, confidence=0.9282
+{679} => {472}, support=0.0081, confidence=0.6095
+{482} => {920}, support=0.0054, confidence=0.6036
+{627} => {497}, support=0.0076, confidence=0.8707
+{802} => {570}, support=0.0050, confidence=0.6024
+{843} => {573}, support=0.0059, confidence=0.7872
+{843} => {580}, support=0.0060, confidence=0.7979
+{820} => {685}, support=0.0080, confidence=0.6364
+{705} => {826}, support=0.0110, confidence=0.6143
+{820} => {766}, support=0.0079, confidence=0.6261
+{802} => {863}, support=0.0067, confidence=0.8072
+{843} => {804}, support=0.0061, confidence=0.8072
+{880} => {826}, support=0.0054, confidence=0.6208
+{970} => {889}, support=0.0081, confidence=0.9541
+{186, 679} => {961}, support=0.0065, confidence=0.9819
+{186, 961} => {679}, support=0.0065, confidence=0.9631
+{679, 961} => {186}, support=0.0065, confidence=0.9746
+{193, 488} => {936}, support=0.0050, confidence=0.9671
+{193, 936} => {488}, support=0.0050, confidence=0.6452
+{488, 936} => {193}, support=0.0050, confidence=0.9634
+{802} => {393, 863}, support=0.0064, confidence=0.7629
+{393, 802} => {863}, support=0.0064, confidence=0.9593
+{393, 863} => {802}, support=0.0064, confidence=0.7230
+{802, 863} => {393}, support=0.0064, confidence=0.9451
+{193, 639} => {936}, support=0.0050, confidence=0.9527
+{193, 936} => {639}, support=0.0050, confidence=0.6503
+{639, 936} => {193}, support=0.0050, confidence=0.9825
+{7, 33} => {473}, support=0.0054, confidence=0.8979
+{7, 473} => {33}, support=0.0054, confidence=0.8583
+{33, 473} => {7}, support=0.0054, confidence=0.8949
+{459} => {209, 291}, support=0.0075, confidence=0.6681
+{209, 291} => {459}, support=0.0075, confidence=0.9352
+{209, 459} => {291}, support=0.0075, confidence=0.9435
+{291, 459} => {209}, support=0.0075, confidence=0.9555
+{209, 291} => {889}, support=0.0076, confidence=0.9514
+{209, 889} => {291}, support=0.0076, confidence=0.9216
+{291, 889} => {209}, support=0.0076, confidence=0.9249
+{970} => {209, 291}, support=0.0076, confidence=0.8999
+{209, 291} => {970}, support=0.0076, confidence=0.9514
+{209, 970} => {291}, support=0.0076, confidence=0.9479
+{291, 970} => {209}, support=0.0076, confidence=0.9586
+{816, 863} => {945}, support=0.0055, confidence=0.8976
+{816, 945} => {863}, support=0.0055, confidence=0.8818
+{863, 945} => {816}, support=0.0055, confidence=0.8376
+{193, 889} => {936}, support=0.0050, confidence=0.9457
+{193, 936} => {889}, support=0.0050, confidence=0.6516
+{889, 936} => {193}, support=0.0050, confidence=0.9439
+{412, 573} => {580}, support=0.0056, confidence=0.9180
+{412, 580} => {573}, support=0.0056, confidence=0.9076
+{573, 580} => {412}, support=0.0056, confidence=0.9318
+{412, 573} => {804}, support=0.0057, confidence=0.9295
+{412, 804} => {573}, support=0.0057, confidence=0.6864
+{573, 804} => {412}, support=0.0057, confidence=0.9387
+{843} => {412, 573}, support=0.0056, confidence=0.7460
+{412, 573} => {843}, support=0.0056, confidence=0.9197
+{412, 843} => {573}, support=0.0056, confidence=0.9303
+{573, 843} => {412}, support=0.0056, confidence=0.9476
+{412, 580} => {804}, support=0.0057, confidence=0.9287
+{412, 804} => {580}, support=0.0057, confidence=0.6937
+{580, 804} => {412}, support=0.0057, confidence=0.9257
+{843} => {412, 580}, support=0.0057, confidence=0.7553
+{412, 580} => {843}, support=0.0057, confidence=0.9206
+{412, 843} => {580}, support=0.0057, confidence=0.9420
+{580, 843} => {412}, support=0.0057, confidence=0.9467
+{459} => {209, 889}, support=0.0076, confidence=0.6735
+{209, 459} => {889}, support=0.0076, confidence=0.9510
+{209, 889} => {459}, support=0.0076, confidence=0.9131
+{459, 889} => {209}, support=0.0076, confidence=0.9510
+{459} => {209, 970}, support=0.0076, confidence=0.6717
+{970} => {209, 459}, support=0.0076, confidence=0.8893
+{209, 459} => {970}, support=0.0076, confidence=0.9485
+{209, 970} => {459}, support=0.0076, confidence=0.9367
+{459, 970} => {209}, support=0.0076, confidence=0.9581
+{5, 374} => {717}, support=0.0053, confidence=0.9283
+{5, 717} => {374}, support=0.0053, confidence=0.9219
+{374, 717} => {5}, support=0.0053, confidence=0.9077
+{218, 284} => {347}, support=0.0083, confidence=0.8931
+{218, 347} => {284}, support=0.0083, confidence=0.6190
+{284, 347} => {218}, support=0.0083, confidence=0.9088
+{516} => {218, 284}, support=0.0080, confidence=0.6852
+{218, 284} => {516}, support=0.0080, confidence=0.8629
+{218, 516} => {284}, support=0.0080, confidence=0.9478
+{284, 516} => {218}, support=0.0080, confidence=0.9569
+{13, 228} => {391}, support=0.0061, confidence=0.9239
+{13, 391} => {228}, support=0.0061, confidence=0.8836
+{13, 228} => {723}, support=0.0061, confidence=0.9269
+{13, 723} => {228}, support=0.0061, confidence=0.8230
+{228, 723} => {13}, support=0.0061, confidence=0.6121
+{516} => {218, 347}, support=0.0081, confidence=0.6938
+{218, 347} => {516}, support=0.0081, confidence=0.6055
+{218, 516} => {347}, support=0.0081, confidence=0.9597
+{347, 516} => {218}, support=0.0081, confidence=0.9529
+{843} => {412, 804}, support=0.0057, confidence=0.7646
+{412, 804} => {843}, support=0.0057, confidence=0.6961
+{412, 843} => {804}, support=0.0057, confidence=0.9536
+{804, 843} => {412}, support=0.0057, confidence=0.9473
+{414, 794} => {858}, support=0.0069, confidence=0.9021
+{414, 858} => {794}, support=0.0069, confidence=0.9453
+{794, 858} => {414}, support=0.0069, confidence=0.9414
+{624, 796} => {854}, support=0.0072, confidence=0.8944
+{624, 854} => {796}, support=0.0072, confidence=0.9102
+{796, 854} => {624}, support=0.0072, confidence=0.8933
+{13, 391} => {723}, support=0.0063, confidence=0.9156
+{13, 723} => {391}, support=0.0063, confidence=0.8500
+{391, 723} => {13}, support=0.0063, confidence=0.6036
+{218, 547} => {662}, support=0.0059, confidence=0.9766
+{218, 662} => {547}, support=0.0059, confidence=0.8442
+{547, 662} => {218}, support=0.0059, confidence=0.9590
+{218, 547} => {924}, support=0.0058, confidence=0.9616
+{218, 924} => {547}, support=0.0058, confidence=0.9216
+{547, 924} => {218}, support=0.0058, confidence=0.9600
+{218, 547} => {948}, support=0.0058, confidence=0.9633
+{218, 948} => {547}, support=0.0058, confidence=0.8059
+{547, 948} => {218}, support=0.0058, confidence=0.9490
+{970} => {209, 889}, support=0.0077, confidence=0.9081
+{209, 889} => {970}, support=0.0077, confidence=0.9300
+{209, 970} => {889}, support=0.0077, confidence=0.9566
+{889, 970} => {209}, support=0.0077, confidence=0.9519
+{218, 662} => {924}, support=0.0058, confidence=0.8427
+{218, 924} => {662}, support=0.0058, confidence=0.9344
+{662, 924} => {218}, support=0.0058, confidence=0.9374
+{218, 662} => {948}, support=0.0058, confidence=0.8413
+{218, 948} => {662}, support=0.0058, confidence=0.8142
+{662, 948} => {218}, support=0.0058, confidence=0.9152
+{228, 391} => {723}, support=0.0091, confidence=0.8646
+{228, 723} => {391}, support=0.0091, confidence=0.9116
+{391, 723} => {228}, support=0.0091, confidence=0.8704
+{22, 414} => {794}, support=0.0070, confidence=0.9259
+{22, 794} => {414}, support=0.0070, confidence=0.9150
+{414, 794} => {22}, support=0.0070, confidence=0.9138
+{22, 414} => {858}, support=0.0069, confidence=0.9101
+{22, 858} => {414}, support=0.0069, confidence=0.9438
+{414, 858} => {22}, support=0.0069, confidence=0.9412
+{218, 924} => {948}, support=0.0058, confidence=0.9328
+{218, 948} => {924}, support=0.0058, confidence=0.8142
+{924, 948} => {218}, support=0.0058, confidence=0.6787
+{34, 218} => {284}, support=0.0079, confidence=0.9308
+{34, 284} => {218}, support=0.0079, confidence=0.9385
+{218, 284} => {34}, support=0.0079, confidence=0.8564
+{34, 218} => {347}, support=0.0080, confidence=0.9413
+{34, 347} => {218}, support=0.0080, confidence=0.9502
+{218, 347} => {34}, support=0.0080, confidence=0.6003
+{516} => {34, 218}, support=0.0079, confidence=0.6767
+{34, 218} => {516}, support=0.0079, confidence=0.9261
+{34, 516} => {218}, support=0.0079, confidence=0.9575
+{218, 516} => {34}, support=0.0079, confidence=0.9359
+{33, 286} => {948}, support=0.0061, confidence=0.8865
+{33, 948} => {286}, support=0.0061, confidence=0.8458
+{286, 948} => {33}, support=0.0061, confidence=0.8996
+{34, 284} => {347}, support=0.0080, confidence=0.9491
+{34, 347} => {284}, support=0.0080, confidence=0.9502
+{284, 347} => {34}, support=0.0080, confidence=0.8813
+{516} => {34, 284}, support=0.0079, confidence=0.6741
+{34, 284} => {516}, support=0.0079, confidence=0.9302
+{34, 516} => {284}, support=0.0079, confidence=0.9539
+{284, 516} => {34}, support=0.0079, confidence=0.9413
+{516} => {34, 347}, support=0.0080, confidence=0.6835
+{34, 347} => {516}, support=0.0080, confidence=0.9443
+{34, 516} => {347}, support=0.0080, confidence=0.9672
+{347, 516} => {34}, support=0.0080, confidence=0.9388
+{22, 794} => {858}, support=0.0069, confidence=0.9085
+{22, 858} => {794}, support=0.0069, confidence=0.9534
+{794, 858} => {22}, support=0.0069, confidence=0.9469
+{243, 472} => {759}, support=0.0061, confidence=0.8861
+{243, 759} => {472}, support=0.0061, confidence=0.9073
+{472, 759} => {243}, support=0.0061, confidence=0.8746
+{40, 705} => {826}, support=0.0103, confidence=0.9350
+{40, 826} => {705}, support=0.0103, confidence=0.8719
+{705, 826} => {40}, support=0.0103, confidence=0.9392
+{662, 924} => {948}, support=0.0059, confidence=0.9486
+{662, 948} => {924}, support=0.0059, confidence=0.9278
+{924, 948} => {662}, support=0.0059, confidence=0.6880
+{459} => {889, 970}, support=0.0076, confidence=0.6726
+{970} => {459, 889}, support=0.0076, confidence=0.8905
+{459, 889} => {970}, support=0.0076, confidence=0.9497
+{459, 970} => {889}, support=0.0076, confidence=0.9594
+{889, 970} => {459}, support=0.0076, confidence=0.9333
+{471, 535} => {996}, support=0.0067, confidence=0.8730
+{471, 996} => {535}, support=0.0067, confidence=0.8846
+{535, 996} => {471}, support=0.0067, confidence=0.8893
+{472, 664} => {872}, support=0.0057, confidence=0.8973
+{472, 872} => {664}, support=0.0057, confidence=0.8834
+{664, 872} => {472}, support=0.0057, confidence=0.9103
+{472, 679} => {961}, support=0.0066, confidence=0.8123
+{472, 961} => {679}, support=0.0066, confidence=0.7037
+{679, 961} => {472}, support=0.0066, confidence=0.9836
+{685, 766} => {820}, support=0.0070, confidence=0.8608
+{685, 820} => {766}, support=0.0070, confidence=0.8738
+{766, 820} => {685}, support=0.0070, confidence=0.8882
+{55, 945} => {999}, support=0.0058, confidence=0.9031
+{55, 999} => {945}, support=0.0058, confidence=0.9074
+{945, 999} => {55}, support=0.0058, confidence=0.9074
+{516} => {284, 347}, support=0.0081, confidence=0.6913
+{284, 347} => {516}, support=0.0081, confidence=0.8857
+{284, 516} => {347}, support=0.0081, confidence=0.9653
+{347, 516} => {284}, support=0.0081, confidence=0.9494
+{76, 439} => {685}, support=0.0067, confidence=0.8705
+{76, 685} => {439}, support=0.0067, confidence=0.8432
+{439, 685} => {76}, support=0.0067, confidence=0.8145
+{71, 685} => {766}, support=0.0069, confidence=0.8081
+{71, 766} => {685}, support=0.0069, confidence=0.8809
+{685, 766} => {71}, support=0.0069, confidence=0.8559
+{71, 685} => {820}, support=0.0070, confidence=0.8140
+{71, 820} => {685}, support=0.0070, confidence=0.8772
+{685, 820} => {71}, support=0.0070, confidence=0.8750
+{71, 766} => {820}, support=0.0070, confidence=0.8847
+{71, 820} => {766}, support=0.0070, confidence=0.8747
+{766, 820} => {71}, support=0.0070, confidence=0.8869
+{495, 542} => {632}, support=0.0055, confidence=0.7983
+{495, 632} => {542}, support=0.0055, confidence=0.8407
+{542, 632} => {495}, support=0.0055, confidence=0.8864
+{495, 542} => {964}, support=0.0055, confidence=0.7911
+{495, 964} => {542}, support=0.0055, confidence=0.8985
+{542, 964} => {495}, support=0.0055, confidence=0.9305
+{459} => {291, 889}, support=0.0075, confidence=0.6673
+{291, 459} => {889}, support=0.0075, confidence=0.9542
+{291, 889} => {459}, support=0.0075, confidence=0.9080
+{459, 889} => {291}, support=0.0075, confidence=0.9422
+{459} => {291, 970}, support=0.0075, confidence=0.6655
+{970} => {291, 459}, support=0.0075, confidence=0.8810
+{291, 459} => {970}, support=0.0075, confidence=0.9517
+{291, 970} => {459}, support=0.0075, confidence=0.9385
+{459, 970} => {291}, support=0.0075, confidence=0.9492
+{495, 632} => {964}, support=0.0055, confidence=0.8285
+{495, 964} => {632}, support=0.0055, confidence=0.8936
+{632, 964} => {495}, support=0.0055, confidence=0.9239
+{297, 369} => {830}, support=0.0050, confidence=0.7902
+{297, 830} => {369}, support=0.0050, confidence=0.6807
+{495, 816} => {863}, support=0.0055, confidence=0.8736
+{495, 863} => {816}, support=0.0055, confidence=0.7583
+{816, 863} => {495}, support=0.0055, confidence=0.8878
+{495, 816} => {945}, support=0.0055, confidence=0.8848
+{495, 945} => {816}, support=0.0055, confidence=0.8456
+{816, 945} => {495}, support=0.0055, confidence=0.8834
+{495, 863} => {945}, support=0.0055, confidence=0.7639
+{495, 945} => {863}, support=0.0055, confidence=0.8410
+{863, 945} => {495}, support=0.0055, confidence=0.8346
+{970} => {291, 889}, support=0.0076, confidence=0.9011
+{291, 889} => {970}, support=0.0076, confidence=0.9262
+{291, 970} => {889}, support=0.0076, confidence=0.9598
+{889, 970} => {291}, support=0.0076, confidence=0.9444
+{709, 884} => {979}, support=0.0054, confidence=0.8900
+{709, 979} => {884}, support=0.0054, confidence=0.9525
+{884, 979} => {709}, support=0.0054, confidence=0.9018
+{106, 495} => {816}, support=0.0055, confidence=0.8875
+{106, 816} => {495}, support=0.0055, confidence=0.8961
+{495, 816} => {106}, support=0.0055, confidence=0.8832
+{106, 495} => {863}, support=0.0055, confidence=0.8826
+{106, 863} => {495}, support=0.0055, confidence=0.8912
+{495, 863} => {106}, support=0.0055, confidence=0.7625
+{106, 495} => {945}, support=0.0056, confidence=0.8955
+{106, 945} => {495}, support=0.0056, confidence=0.8898
+{495, 945} => {106}, support=0.0056, confidence=0.8517
+{106, 816} => {863}, support=0.0055, confidence=0.8880
+{106, 863} => {816}, support=0.0055, confidence=0.8880
+{816, 863} => {106}, support=0.0055, confidence=0.8894
+{106, 816} => {945}, support=0.0057, confidence=0.9188
+{106, 945} => {816}, support=0.0057, confidence=0.9042
+{816, 945} => {106}, support=0.0057, confidence=0.9042
+{530, 599} => {783}, support=0.0074, confidence=0.7815
+{530, 783} => {599}, support=0.0074, confidence=0.8550
+{599, 783} => {530}, support=0.0074, confidence=0.9213
+{106, 863} => {945}, support=0.0056, confidence=0.9075
+{106, 945} => {863}, support=0.0056, confidence=0.8930
+{863, 945} => {106}, support=0.0056, confidence=0.8483
+{121, 594} => {863}, support=0.0057, confidence=0.8910
+{121, 863} => {594}, support=0.0057, confidence=0.8602
+{594, 863} => {121}, support=0.0057, confidence=0.9301
+{121, 594} => {896}, support=0.0058, confidence=0.9019
+{121, 896} => {594}, support=0.0058, confidence=0.8453
+{594, 896} => {121}, support=0.0058, confidence=0.9176
+{542, 632} => {964}, support=0.0054, confidence=0.8640
+{542, 964} => {632}, support=0.0054, confidence=0.9153
+{632, 964} => {542}, support=0.0054, confidence=0.9137
+{121, 863} => {896}, support=0.0057, confidence=0.8586
+{121, 896} => {863}, support=0.0057, confidence=0.8336
+{863, 896} => {121}, support=0.0057, confidence=0.8992
+{547, 662} => {924}, support=0.0059, confidence=0.9705
+{547, 924} => {662}, support=0.0059, confidence=0.9867
+{662, 924} => {547}, support=0.0059, confidence=0.9502
+{547, 662} => {948}, support=0.0059, confidence=0.9705
+{547, 948} => {662}, support=0.0059, confidence=0.9737
+{662, 948} => {547}, support=0.0059, confidence=0.9294
+{351, 412} => {573}, support=0.0056, confidence=0.9054
+{351, 573} => {412}, support=0.0056, confidence=0.9217
+{412, 573} => {351}, support=0.0056, confidence=0.9262
+{351, 412} => {580}, support=0.0056, confidence=0.9006
+{351, 580} => {412}, support=0.0056, confidence=0.8921
+{412, 580} => {351}, support=0.0056, confidence=0.9109
+{351, 412} => {804}, support=0.0057, confidence=0.9183
+{351, 804} => {412}, support=0.0057, confidence=0.9038
+{412, 804} => {351}, support=0.0057, confidence=0.6937
+{843} => {351, 412}, support=0.0057, confidence=0.7527
+{351, 412} => {843}, support=0.0057, confidence=0.9071
+{351, 843} => {412}, support=0.0057, confidence=0.9418
+{412, 843} => {351}, support=0.0057, confidence=0.9386
+{347, 562} => {889}, support=0.0060, confidence=0.9084
+{347, 889} => {562}, support=0.0060, confidence=0.8781
+{562, 889} => {347}, support=0.0060, confidence=0.8923
+{547, 924} => {948}, support=0.0058, confidence=0.9733
+{547, 948} => {924}, support=0.0058, confidence=0.9605
+{924, 948} => {547}, support=0.0058, confidence=0.6799
+{351, 573} => {580}, support=0.0056, confidence=0.9086
+{351, 580} => {573}, support=0.0056, confidence=0.8841
+{573, 580} => {351}, support=0.0056, confidence=0.9268
+{351, 573} => {804}, support=0.0056, confidence=0.9184
+{351, 804} => {573}, support=0.0056, confidence=0.8880
+{573, 804} => {351}, support=0.0056, confidence=0.9321
+{843} => {351, 573}, support=0.0056, confidence=0.7460
+{351, 573} => {843}, support=0.0056, confidence=0.9152
+{351, 843} => {573}, support=0.0056, confidence=0.9334
+{573, 843} => {351}, support=0.0056, confidence=0.9476
+{351, 580} => {804}, support=0.0056, confidence=0.8968
+{351, 804} => {580}, support=0.0056, confidence=0.8912
+{580, 804} => {351}, support=0.0056, confidence=0.9128
+{843} => {351, 580}, support=0.0056, confidence=0.7473
+{351, 580} => {843}, support=0.0056, confidence=0.8921
+{351, 843} => {580}, support=0.0056, confidence=0.9351
+{580, 843} => {351}, support=0.0056, confidence=0.9367
+{355, 584} => {618}, support=0.0059, confidence=0.8879
+{355, 618} => {584}, support=0.0059, confidence=0.8618
+{584, 618} => {355}, support=0.0059, confidence=0.9287
+{843} => {351, 804}, support=0.0057, confidence=0.7580
+{351, 804} => {843}, support=0.0057, confidence=0.8991
+{351, 843} => {804}, support=0.0057, confidence=0.9484
+{804, 843} => {351}, support=0.0057, confidence=0.9390
+{159} => {355, 584}, support=0.0060, confidence=0.6731
+{159, 355} => {584}, support=0.0060, confidence=0.9239
+{159, 584} => {355}, support=0.0060, confidence=0.9311
+{355, 584} => {159}, support=0.0060, confidence=0.9015
+{159} => {355, 618}, support=0.0060, confidence=0.6753
+{159, 355} => {618}, support=0.0060, confidence=0.9270
+{159, 618} => {355}, support=0.0060, confidence=0.9372
+{355, 618} => {159}, support=0.0060, confidence=0.8779
+{573, 580} => {804}, support=0.0056, confidence=0.9301
+{573, 804} => {580}, support=0.0056, confidence=0.9255
+{580, 804} => {573}, support=0.0056, confidence=0.9031
+{843} => {573, 580}, support=0.0056, confidence=0.7420
+{573, 580} => {843}, support=0.0056, confidence=0.9285
+{573, 843} => {580}, support=0.0056, confidence=0.9426
+{580, 843} => {573}, support=0.0056, confidence=0.9300
+{572, 624} => {796}, support=0.0070, confidence=0.8991
+{572, 796} => {624}, support=0.0070, confidence=0.8401
+{624, 796} => {572}, support=0.0070, confidence=0.8745
+{572, 624} => {854}, support=0.0071, confidence=0.9106
+{572, 854} => {624}, support=0.0071, confidence=0.8991
+{624, 854} => {572}, support=0.0071, confidence=0.9014
+{369, 495} => {683}, support=0.0059, confidence=0.6872
+{495, 683} => {369}, support=0.0059, confidence=0.8277
+{159} => {584, 618}, support=0.0059, confidence=0.6674
+{159, 584} => {618}, support=0.0059, confidence=0.9233
+{159, 618} => {584}, support=0.0059, confidence=0.9262
+{584, 618} => {159}, support=0.0059, confidence=0.9350
+{572, 796} => {854}, support=0.0072, confidence=0.8532
+{572, 854} => {796}, support=0.0072, confidence=0.9016
+{796, 854} => {572}, support=0.0072, confidence=0.8871
+{843} => {573, 804}, support=0.0056, confidence=0.7473
+{573, 804} => {843}, support=0.0056, confidence=0.9305
+{573, 843} => {804}, support=0.0056, confidence=0.9493
+{804, 843} => {573}, support=0.0056, confidence=0.9259
+{843} => {580, 804}, support=0.0057, confidence=0.7580
+{580, 804} => {843}, support=0.0057, confidence=0.9208
+{580, 843} => {804}, support=0.0057, confidence=0.9500
+{804, 843} => {580}, support=0.0057, confidence=0.9390
+{186, 472} => {679}, support=0.0066, confidence=0.9662
+{186, 679} => {472}, support=0.0066, confidence=0.9895
+{472, 679} => {186}, support=0.0066, confidence=0.8111
+{186, 472} => {961}, support=0.0066, confidence=0.9647
+{186, 961} => {472}, support=0.0066, confidence=0.9690
+{472, 961} => {186}, support=0.0066, confidence=0.7016
+{594, 863} => {896}, support=0.0057, confidence=0.9317
+{594, 896} => {863}, support=0.0057, confidence=0.9081
+{863, 896} => {594}, support=0.0057, confidence=0.9024
+
+=== Performance Summary ===
+Transaction counting time: 0.005 sec
+Pass1 time: 0.048 sec
+Pass2 time: 0.532 sec
+Pass3 time: 0.382 sec
+Rules generation time: 0.009 sec
+
+=== Hash Search Stats ===
+searchItem_calls       = 1010228
+searchItem_traversals  = 1009358
+searchPair_calls       = 5431691
+searchPair_traversals  = 23976143
+searchTriple_calls     = 18790419
+searchTriple_traversals= 112408
+
+Total generated rules: 393
+
+Program finished (kadai4: path1->path2->path3->association-rules)

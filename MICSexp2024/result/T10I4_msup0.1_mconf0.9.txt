@@ -1,0 +1,30 @@
+=== Pass1 -> L1.dat ===
+Total transactions: 100000
+Pass1 time: 0.047 sec
+=== Pass2 -> L2.dat ===
+Found 0 frequent pairs
+Pass2 time: 0.116 sec
+=== Pass3 -> L3.dat ===
+Found 0 frequent triples
+Pass3 time: 0.383 sec
+
+=== Association Rules (confidence >= 0.90) ===
+
+=== Performance Summary ===
+Transaction counting time: 0.005 sec
+Pass1 time: 0.047 sec
+Pass2 time: 0.116 sec
+Pass3 time: 0.383 sec
+Rules generation time: 0.005 sec
+
+=== Hash Search Stats ===
+searchItem_calls       = 1010228
+searchItem_traversals  = 1009358
+searchPair_calls       = 5270095
+searchPair_traversals  = 0
+searchTriple_calls     = 18790249
+searchTriple_traversals= 0
+
+Total generated rules: 0
+
+Program finished (kadai4: path1->path2->path3->association-rules)

@@ -1,0 +1,141 @@
+=== Pass1 -> L1.dat ===
+Total transactions: 948420
+Pass1 time: 0.242 sec
+=== Pass2 -> L2.dat ===
+Found 77 frequent pairs
+Pass2 time: 0.563 sec
+=== Pass3 -> L3.dat ===
+Found 53 frequent triples
+Pass3 time: 2.283 sec
+
+=== Association Rules (confidence >= 0.60) ===
+{2} => {7}, support=0.1149, confidence=0.6260
+{3} => {7}, support=0.0256, confidence=0.6477
+{8} => {7}, support=0.0600, confidence=0.8146
+{12} => {7}, support=0.3027, confidence=0.8778
+{28} => {7}, support=0.0460, confidence=0.7785
+{41} => {7}, support=0.0169, confidence=0.9001
+{65} => {7}, support=0.0309, confidence=0.7774
+{70} => {7}, support=0.0157, confidence=0.8736
+{78} => {7}, support=0.0307, confidence=0.8350
+{84} => {7}, support=0.0231, confidence=0.9087
+{88} => {7}, support=0.0108, confidence=0.8748
+{91} => {7}, support=0.0103, confidence=0.9333
+{88} => {8}, support=0.0106, confidence=0.8562
+{137} => {7}, support=0.0163, confidence=0.8630
+{139} => {7}, support=0.0241, confidence=0.7835
+{149} => {7}, support=0.0447, confidence=0.8950
+{41} => {12}, support=0.0130, confidence=0.6889
+{206} => {7}, support=0.0128, confidence=0.8769
+{216} => {7}, support=0.0146, confidence=0.8385
+{219} => {7}, support=0.0572, confidence=0.8350
+{70} => {12}, support=0.0125, confidence=0.6962
+{78} => {12}, support=0.0237, confidence=0.6448
+{84} => {12}, support=0.0175, confidence=0.6888
+{270} => {7}, support=0.0103, confidence=0.7487
+{279} => {7}, support=0.0119, confidence=0.7411
+{137} => {12}, support=0.0125, confidence=0.6649
+{304} => {7}, support=0.0121, confidence=0.8349
+{149} => {12}, support=0.0364, confidence=0.7283
+{317} => {7}, support=0.0174, confidence=0.7575
+{216} => {12}, support=0.0115, confidence=0.6584
+{219} => {12}, support=0.0421, confidence=0.6151
+{439} => {7}, support=0.0111, confidence=0.9533
+{447} => {7}, support=0.0142, confidence=0.7777
+{738} => {7}, support=0.0123, confidence=0.8472
+{988} => {7}, support=0.0106, confidence=0.8850
+{149} => {219}, support=0.0393, confidence=0.7869
+{2, 4} => {7}, support=0.0502, confidence=0.6407
+{2, 8} => {7}, support=0.0135, confidence=0.8652
+{2, 12} => {7}, support=0.0683, confidence=0.9184
+{2, 28} => {7}, support=0.0101, confidence=0.8362
+{2, 8} => {12}, support=0.0105, confidence=0.6703
+{2, 149} => {7}, support=0.0136, confidence=0.9325
+{2, 219} => {7}, support=0.0163, confidence=0.8938
+{2, 149} => {12}, support=0.0115, confidence=0.7865
+{2, 219} => {12}, support=0.0128, confidence=0.6990
+{3, 4} => {7}, support=0.0117, confidence=0.6543
+{3, 7} => {12}, support=0.0155, confidence=0.6049
+{3, 12} => {7}, support=0.0155, confidence=0.9248
+{4, 8} => {7}, support=0.0267, confidence=0.8188
+{4, 12} => {7}, support=0.1343, confidence=0.8788
+{4, 28} => {7}, support=0.0205, confidence=0.7833
+{4, 8} => {12}, support=0.0196, confidence=0.6020
+{4, 65} => {7}, support=0.0136, confidence=0.7801
+{4, 78} => {7}, support=0.0138, confidence=0.8375
+{4, 84} => {7}, support=0.0101, confidence=0.9089
+{4, 139} => {7}, support=0.0107, confidence=0.7894
+{4, 149} => {7}, support=0.0194, confidence=0.8956
+{4, 219} => {7}, support=0.0250, confidence=0.8378
+{4, 78} => {12}, support=0.0106, confidence=0.6452
+{4, 149} => {12}, support=0.0158, confidence=0.7299
+{4, 219} => {12}, support=0.0185, confidence=0.6176
+{5, 12} => {7}, support=0.0229, confidence=0.8778
+{2, 149} => {219}, support=0.0123, confidence=0.8432
+{2, 219} => {149}, support=0.0123, confidence=0.6740
+{7, 8} => {12}, support=0.0428, confidence=0.7132
+{8, 12} => {7}, support=0.0428, confidence=0.9713
+{8, 28} => {7}, support=0.0263, confidence=0.9058
+{8, 84} => {7}, support=0.0108, confidence=0.9815
+{7, 28} => {12}, support=0.0322, confidence=0.6993
+{12, 28} => {7}, support=0.0322, confidence=0.9639
+{41} => {7, 12}, support=0.0128, confidence=0.6799
+{7, 41} => {12}, support=0.0128, confidence=0.7553
+{12, 41} => {7}, support=0.0128, confidence=0.9870
+{12, 56} => {7}, support=0.0196, confidence=0.8863
+{7, 65} => {12}, support=0.0214, confidence=0.6908
+{12, 65} => {7}, support=0.0214, confidence=0.9621
+{70} => {7, 12}, support=0.0123, confidence=0.6841
+{7, 70} => {12}, support=0.0123, confidence=0.7831
+{12, 70} => {7}, support=0.0123, confidence=0.9826
+{78} => {7, 12}, support=0.0231, confidence=0.6283
+{7, 78} => {12}, support=0.0231, confidence=0.7524
+{12, 78} => {7}, support=0.0231, confidence=0.9744
+{84} => {7, 12}, support=0.0173, confidence=0.6808
+{7, 84} => {12}, support=0.0173, confidence=0.7492
+{12, 84} => {7}, support=0.0173, confidence=0.9884
+{137} => {7, 12}, support=0.0123, confidence=0.6510
+{7, 137} => {12}, support=0.0123, confidence=0.7543
+{12, 137} => {7}, support=0.0123, confidence=0.9791
+{7, 139} => {12}, support=0.0164, confidence=0.6820
+{12, 139} => {7}, support=0.0164, confidence=0.9658
+{149} => {7, 12}, support=0.0359, confidence=0.7177
+{7, 149} => {12}, support=0.0359, confidence=0.8020
+{12, 149} => {7}, support=0.0359, confidence=0.9855
+{216} => {7, 12}, support=0.0112, confidence=0.6442
+{7, 216} => {12}, support=0.0112, confidence=0.7683
+{12, 216} => {7}, support=0.0112, confidence=0.9785
+{7, 219} => {12}, support=0.0411, confidence=0.7182
+{12, 219} => {7}, support=0.0411, confidence=0.9751
+{7, 317} => {12}, support=0.0124, confidence=0.7130
+{12, 317} => {7}, support=0.0124, confidence=0.9577
+{8, 28} => {12}, support=0.0205, confidence=0.7066
+{12, 28} => {8}, support=0.0205, confidence=0.6151
+{4, 149} => {219}, support=0.0169, confidence=0.7802
+{149} => {7, 219}, support=0.0374, confidence=0.7488
+{7, 149} => {219}, support=0.0374, confidence=0.8367
+{7, 219} => {149}, support=0.0374, confidence=0.6548
+{149, 219} => {7}, support=0.0374, confidence=0.9516
+{149} => {12, 219}, support=0.0314, confidence=0.6284
+{12, 149} => {219}, support=0.0314, confidence=0.8628
+{12, 219} => {149}, support=0.0314, confidence=0.7461
+{149, 219} => {12}, support=0.0314, confidence=0.7986
+
+=== Performance Summary ===
+Transaction counting time: 0.048 sec
+Pass1 time: 0.242 sec
+Pass2 time: 0.563 sec
+Pass3 time: 2.283 sec
+Rules generation time: 0.004 sec
+
+=== Hash Search Stats ===
+searchItem_calls       = 4670643
+searchItem_traversals  = 4632103
+searchPair_calls       = 22195463
+searchPair_traversals  = 4416489
+searchTriple_calls     = 119181183
+searchTriple_traversals= 1400152
+
+Total generated rules: 111
+
+Program finished (kadai4: path1->path2->path3->association-rules)

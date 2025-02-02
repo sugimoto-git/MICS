@@ -1,0 +1,37 @@
+=== Pass1 -> L1.dat ===
+Total transactions: 948420
+Pass1 time: 0.246 sec
+=== Pass2 -> L2.dat ===
+Found 8 frequent pairs
+Pass2 time: 0.520 sec
+=== Pass3 -> L3.dat ===
+Found 3 frequent triples
+Pass3 time: 2.338 sec
+
+=== Association Rules (confidence >= 0.60) ===
+{2} => {7}, support=0.1149, confidence=0.6260
+{8} => {7}, support=0.0600, confidence=0.8146
+{12} => {7}, support=0.3027, confidence=0.8778
+{219} => {7}, support=0.0572, confidence=0.8350
+{2, 4} => {7}, support=0.0502, confidence=0.6407
+{2, 12} => {7}, support=0.0683, confidence=0.9184
+{4, 12} => {7}, support=0.1343, confidence=0.8788
+
+=== Performance Summary ===
+Transaction counting time: 0.046 sec
+Pass1 time: 0.246 sec
+Pass2 time: 0.520 sec
+Pass3 time: 2.338 sec
+Rules generation time: 0.004 sec
+
+=== Hash Search Stats ===
+searchItem_calls       = 4670643
+searchItem_traversals  = 4632103
+searchPair_calls       = 22194833
+searchPair_traversals  = 1705370
+searchTriple_calls     = 119181108
+searchTriple_traversals= 273974
+
+Total generated rules: 7
+
+Program finished (kadai4: path1->path2->path3->association-rules)
