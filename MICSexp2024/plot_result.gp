@@ -14,7 +14,7 @@ file_kosarak = "results_kosarak.csv"
 # 1) Pass1Time vs MinSup
 # ----------------------------------------------------------------------------
 set terminal pngcairo size 800,600
-set output "pass1time.png"
+set output "./photos/pass1time.png"
 
 set title "Pass1Time vs MinSup"
 set xlabel "MinSup"
@@ -26,7 +26,7 @@ plot file_t10i4 using 2:5 title "T10I4D100K" with linespoints, \
 # ----------------------------------------------------------------------------
 # 2) Pass2Time vs MinSup
 # ----------------------------------------------------------------------------
-set output "pass2time.png"
+set output "./photos/pass2time.png"
 set title "Pass2Time vs MinSup"
 set ylabel "Pass2Time (sec)"
 
@@ -36,7 +36,7 @@ plot file_t10i4 using 2:6 title "T10I4D100K" with linespoints, \
 # ----------------------------------------------------------------------------
 # 3) Pass3Time vs MinSup
 # ----------------------------------------------------------------------------
-set output "pass3time.png"
+set output "./photos/pass3time.png"
 set title "Pass3Time vs MinSup"
 set ylabel "Pass3Time (sec)"
 
@@ -46,7 +46,7 @@ plot file_t10i4 using 2:7 title "T10I4D100K" with linespoints, \
 # ----------------------------------------------------------------------------
 # 4) GeneratedRules vs MinSup
 # ----------------------------------------------------------------------------
-set output "rules.png"
+set output "./photos/rules.png"
 set title "GeneratedRules vs MinSup"
 set ylabel "GeneratedRules"
 
